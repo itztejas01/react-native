@@ -1,0 +1,25 @@
+    // const DATA = [
+    //     {
+    //         image:require('./img/cool2.jpg'),
+    //         ownerName: 'Balls',
+    //     },
+    //     {
+    //         image: require('./img/cool3.jpg'),
+    //         ownerName: 'Mountains',
+    //     },
+    //     {
+    //         image: require('./img/cool1.jpg'),
+    //         ownerName: 'Cat',
+    //     },
+    //     {
+    //         image: require('./img/cool4.jpg'),
+    //         ownerName: 'Sunrays',
+    //     },
+    //     {
+    //         image: require('./img/cool5.jpg'),
+    //         ownerName: 'Leaves',
+    //     },
+    // ]
+    // this.getImagesAPICall();
+
+    console.log("responeses: ",response.data);
