@@ -1,0 +1,12 @@
+// state = {
+    //     imageList: [],
+    //     showLoader: false,
+
+    // };
+
+    // getImagesAPICall(){
+    //     this.setState({
+    //         showLoader:true,
+    //     })
+        
+    // }

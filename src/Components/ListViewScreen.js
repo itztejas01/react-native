@@ -1,20 +1,20 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Alert, ActivityIndicator } from 'react-native'
 import {ListCard,TextField} from './common';
 import { connect } from 'react-redux';
-import { imageSearchBoxValueChanged } from '../Actions/ImageListAction'
-import axios from 'axios';
+import { imageSearchBoxValueChanged, 
+    getImageListFromApi,
+toggleImageListLoader,
+} from '../Actions/ImageListAction'
+
 
 class ListViewScreen extends Component {
 
-    state = {
-        imageList: [],
-        showLoader: false,
-
-    };
+    
 
     renderLoader(){
-        if (this.state.showLoader){
+        // if (this.state.showLoader)
+        if(this.props.showLoader){
             return <ActivityIndicator
             size='large'
             color="#00ff00"
@@ -25,49 +25,61 @@ class ListViewScreen extends Component {
         }
     }
 
-    getImagesAPICall(){
-        this.setState({
-            showLoader:true,
-        })
-        axios.get("https://picsum.photos/v2/list")
-        .then(response => {
-            
-            this.setState({
-                imageList: response.data,
-                showLoader:false
-            })
-        })
-        .catch(error => {
-            this.setState({
-                showLoader:false
-            });
-            console.log('error: ',error);
-        });
-    }
+    
 
     componentDidMount() {
-        this.getImagesAPICall();
+        // this.getImagesAPICall();
+        // this.props.toggleImageListLoader(true);
+        // console.log(this.props);
+        this.props.getImageListFromApi();
+        // this.props.toggleImageListLoader(false);
     }
     render(){
     const {ViewStyle, HeaderViewStyle, TextViewStyle} = styles;
+    const EmptyListMessage = () => {
+        return (
+          // Flat List Item
+          <View
+          style={styles.EmptyView}
+          >
+          <Text
+          style={styles.emptyListStyle}
+            onPress={() => Alert.alert('Items Search','No item found')}>
+            No Data Found
+          </Text>
+          </View>
+        );
+      };
     return (
         <View style={ViewStyle}>
             <View style={HeaderViewStyle}>
             <Text style={TextViewStyle}>Image Gallery</Text>
         </View>
         <TextField placeHolder="Search" style={{borderColor:'pink',fontSize:17}} onChange={value =>{
-            // console.log('value entered: ',value);
-            this.props.imageSearchBoxValueChanged(value);
+        
+            this.props.imageSearchBoxValueChanged(this.props.image_list,value);
+            
         }}
         value={this.props.image_search_value}
         />
+        
         <FlatList
-        data={this.state.imageList}
+        // data={this.state.imageList}
+        // data={this.props.image_list}
+        data={this.props.filtered_image_list}
         renderItem={(item) => {
+            
             return (
-                <ListCard image={item.item.download_url} ownerName={item.item.author} />
+                <ListCard 
+                image={item.item.download_url} 
+                ownerName={item.item.author} 
+                />
+                
             )
+            
         }}
+        ListEmptyComponent = {EmptyListMessage}
+        contentContainerStyle={{flex:1}}
         
         />
         {this.renderLoader()}
@@ -102,10 +114,28 @@ const styles = StyleSheet.create({
         bottom:0,
         padding:10
     },
+    EmptyView:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height:'100%'
+    },
+    emptyListStyle: {
+        fontSize: 20,
+        margin: 10,
+        color:'black',
+        fontFamily: 'ZenOldMincho-Black',
+      },
 });
 const mapStateToProps = state => {
     return {
         image_search_value: state.imageList.image_search,
+        image_list: state.imageList.image_list,
+        showLoader: state.imageList.showLoader, 
+        filtered_image_list: state.imageList.filtered_image_list
     };
 };
-export default connect(mapStateToProps,{imageSearchBoxValueChanged})(ListViewScreen);
+export default connect(mapStateToProps,{imageSearchBoxValueChanged,
+    getImageListFromApi,
+    toggleImageListLoader,
+})(ListViewScreen);
