@@ -24,13 +24,7 @@ class ListCard extends Component {
 	<View>
 	<Text style={textViewStyle}>{ownerName}</Text>
 	</View>
-    <TouchableOpacity style={downloadTouchButton}
-    onPress={()=>{
-        alert('Download button pressed')
-    }}
-    >
-        <Text style={downloadText}>Download!</Text>
-    </TouchableOpacity>
+    
     <TouchableNativeFeedback style={downloadTouchButton}
     onPress={()=>{
         alert('hello I am tejas chaplot')
@@ -87,4 +81,4 @@ downloadText:{
     fontFamily:'Anton-Regular',
 }
 });
-export default ListCard
+export {ListCard}
