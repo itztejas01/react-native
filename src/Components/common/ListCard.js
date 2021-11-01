@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { View, Text, Image, 
+import { View, 
+    Text, 
+    Image, 
     StyleSheet, 
     TouchableOpacity,
 TouchableNativeFeedback
@@ -12,7 +14,7 @@ class ListCard extends Component {
         textViewStyle,
         downloadTouchButton,
         downloadText} = styles;
-    const {image, ownerName} = this.props;
+    const {image, ownerName,detailsOnPress} = this.props;
     return (
         <View style={cardStyle}>
 
@@ -24,19 +26,10 @@ class ListCard extends Component {
 	<View>
 	<Text style={textViewStyle}>{ownerName}</Text>
 	</View>
-    <TouchableOpacity style={downloadTouchButton}
-    onPress={()=>{
-        alert('Download button pressed')
-    }}
-    >
-        <Text style={downloadText}>Download!</Text>
-    </TouchableOpacity>
     <TouchableNativeFeedback style={downloadTouchButton}
-    onPress={()=>{
-        alert('hello I am tejas chaplot')
-    }}
+    onPress={detailsOnPress}
     >
-        <Text style={downloadText}>Download!</Text>
+        <Text style={downloadText}>View Details</Text>
     </TouchableNativeFeedback>
         </View>
     )
@@ -50,8 +43,8 @@ width:'100%',
 },
 cardStyle: {
 backgroundColor: 'white',
-widht:'90%',
-// alignItems:'center',
+width:'100%',
+alignItems:'center',
 alignSelf:'auto',
 marginVertical:20,
 shadowColor: '#000',
@@ -59,7 +52,6 @@ shadowOffset: {width: 0,
     height: 1},
 shadowOpacity: 1,
 elevation: 10,
-
 },
 
 textViewStyle:{

@@ -1,5 +1,12 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, FlatList, Alert, ActivityIndicator } from 'react-native'
+import { View, 
+    Text, 
+    StyleSheet, 
+    FlatList, 
+    Alert, 
+    ActivityIndicator,
+    TouchableOpacity,
+} from 'react-native'
 import {ListCard,TextField} from './common';
 import { connect } from 'react-redux';
 import { imageSearchBoxValueChanged, 
@@ -31,7 +38,7 @@ class ListViewScreen extends Component {
         // this.getImagesAPICall();
         // this.props.toggleImageListLoader(true);
         // console.log(this.props);
-        this.props.getImageListFromApi();
+        // this.props.getImageListFromApi();
         // this.props.toggleImageListLoader(false);
     }
     render(){
@@ -52,10 +59,8 @@ class ListViewScreen extends Component {
       };
     return (
         <View style={ViewStyle}>
-            <View style={HeaderViewStyle}>
-            <Text style={TextViewStyle}>Image Gallery</Text>
-        </View>
-        <TextField placeHolder="Search" style={{borderColor:'pink',fontSize:17}} onChange={value =>{
+            
+        <TextField placeHolder="Search" style={{borderColor:'pink',fontSize:16}} onChange={value =>{
         
             this.props.imageSearchBoxValueChanged(this.props.image_list,value);
             
@@ -72,14 +77,20 @@ class ListViewScreen extends Component {
             return (
                 <ListCard 
                 image={item.item.download_url} 
-                ownerName={item.item.author} 
+                ownerName={item.item.author}
+                detailsOnPress={() => {
+                    this.props.navigation.navigate('Image Details',{
+                        image_id: item.item.id,
+                        author_name: item.item.author
+                    })
+                }}
                 />
                 
             )
             
         }}
         ListEmptyComponent = {EmptyListMessage}
-        contentContainerStyle={{flex:1}}
+        contentContainerStyle={{flexGrow:1,justifyContent:'center'}}
         
         />
         {this.renderLoader()}
@@ -93,6 +104,7 @@ const styles = StyleSheet.create({
     ViewStyle: {
         backgroundColor:'white',
         flex:1,
+        
     },
     HeaderViewStyle: {
         backgroundColor: '#f5f749',
@@ -100,7 +112,7 @@ const styles = StyleSheet.create({
         elevation:10,
     },
     TextViewStyle: {
-        fontSize:35,
+        fontSize:25,
         textAlign:'center',
         marginTop:10,
         color:'#2e86ab',
@@ -115,7 +127,6 @@ const styles = StyleSheet.create({
         padding:10
     },
     EmptyView:{
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         height:'100%'

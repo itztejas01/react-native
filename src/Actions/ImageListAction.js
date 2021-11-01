@@ -36,7 +36,7 @@ export const toggleImageListLoader = show => {
     };
 };
 
-export const getImageListFromApi = () => {
+export const getImageListFromApi = nav => {
     console.log("here api calling is happpening")
   return dispatch => {
 
@@ -59,10 +59,14 @@ export const getImageListFromApi = () => {
             payload: response.data,
         });
 
+
         dispatch({
             type:TOGGLE_IMAGE_LOADER,
             payload:false,
         });
+
+        console.log('nav',nav)
+        nav.navigate('HomeScreen')
         
       })
       .catch(error => {
