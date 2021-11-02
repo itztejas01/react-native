@@ -15,6 +15,7 @@ class ListCard extends Component {
         downloadTouchButton,
         downloadText} = styles;
     const {image, ownerName,detailsOnPress} = this.props;
+
     return (
         <View style={cardStyle}>
 

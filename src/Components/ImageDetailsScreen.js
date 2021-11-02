@@ -4,7 +4,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 class ImageDetailsScreen extends Component {
 
     componentDidMount(){
-        console.log('This.props params',this.props.route)
+        // console.log('This.props params',this.props.route)
     }
   render() {
     return (

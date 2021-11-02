@@ -9,6 +9,8 @@ import NextScreen from '../Components/NextScreen';
 import Tab1Screen from '../Components/Tab1Screen';
 import Tab2Screen from '../Components/Tab2Screen';
 import SplashScreen from '../Components/SplashScreen';
+import OnBoarding from '../Components/OnBoarding';
+
 
 
 
@@ -80,6 +82,8 @@ function MainAppRoutes(){
                 headerShown:false,
             }}>
                 <MainStack.Screen name='Splash Screen' component={SplashScreen} options={{
+                    headerShown:false,
+                }} /><MainStack.Screen name='OnBoarding' component={OnBoarding} options={{
                     headerShown:false,
                 }} />
                 <MainStack.Screen name='HomeScreen' component={tabStack} />

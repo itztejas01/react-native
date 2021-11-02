@@ -2,13 +2,25 @@ import React, { Component } from 'react'
 import { View,Text,ActivityIndicator,StyleSheet } from 'react-native'
 import { connect } from 'react-redux';
 import {getImageListFromApi} from '../Actions/ImageListAction'
+import AsyncStore from '../extras/AsyncStore'
+
 
 
 class SplashScreen extends Component {
     componentDidMount(){
-        console.log("this.props params", this.props.route);
-        this.props.getImageListFromApi(this.props.navigation);
-        // this.props.navigation.navigate("HomeScreen");
+        const asyncStore = new AsyncStore();
+        asyncStore.getData('AppOpened').then(value => {
+            console.log("value: ",value)
+            if (value){
+                console.log("Opening 2 or greater so value is store in async")
+                this.props.getImageListFromApi(this.props.navigation)
+
+            }else{
+                console.log("Opening first time so no value is store in async")
+                asyncStore.storeData('AppOpened','1')
+                this.props.navigation.navigate('OnBoarding')
+            }
+        })
     }
     render() {
         return (

@@ -3,7 +3,7 @@ import {View,Text} from 'react-native'
 
 class NextScreen extends Component {
     componentDidMount(){
-        console.log('this.props')
+        // console.log('this.props')
     }
     render() {
         return (
